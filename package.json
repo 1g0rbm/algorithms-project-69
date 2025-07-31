@@ -1,0 +1,51 @@
+{
+  "name": "hexlet-code",
+  "version": "1.0.0",
+  "description": "[![Actions Status](https://github.com/1g0rbm/algorithms-project-69/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/1g0rbm/algorithms-project-69/actions)",
+  "bin": {
+    "nodejs-package": "bin/nodejs-package.js"
+  },
+  "simple-git-hooks": {
+    "pre-push": "npx lint-staged"
+  },
+  "engines": {
+    "node": ">=21"
+  },
+  "scripts": {
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/1g0rbm/algorithms-project-69.git"
+  },
+  "author": "1g0rbm",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/1g0rbm/algorithms-project-69/issues"
+  },
+  "homepage": "https://github.com/1g0rbm/algorithms-project-69#readme",
+  "lint-staged": {
+    "*.js": "eslint --fix"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.32.0",
+    "@vitest/coverage-v8": "^3.2.4",
+    "eslint": "^9.32.0",
+    "eslint-plugin-import": "^2.32.0",
+    "globals": "^16.3.0",
+    "lint-staged": "^16.1.2",
+    "npm-check-updates": "^18.0.2",
+    "release-it": "^19.0.4",
+    "simple-git-hooks": "^2.13.0",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.38.0"
+  },
+  "dependencies": {
+    "@stylistic/eslint-plugin": "^5.2.2",
+    "debug": "^4.4.1",
+    "es-toolkit": "^1.39.8",
+    "jiti": "^2.5.1",
+    "vitest": "^3.2.4"
+  }
+}
