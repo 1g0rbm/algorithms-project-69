@@ -15,3 +15,8 @@ test('search should return two results', () => {
 test('search should return empty resiult', () => {
   expect(search(docs, 'scooter')).toEqual([])
 })
+
+test('punctuation marks should not affect the search', () => {
+  expect(search(docs, 'pint')).toEqual(['doc1'])
+  expect(search(docs, 'pint!')).toEqual(['doc1'])
+})
