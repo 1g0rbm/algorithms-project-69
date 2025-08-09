@@ -26,6 +26,6 @@ export default function search(docs, needle) {
  *
  * @returns {string[]}
  */
-function tokens2terms(token) {
+export function tokens2terms(token) {
   return token.toLowerCase().match(/\w+/g) ?? []
 }
