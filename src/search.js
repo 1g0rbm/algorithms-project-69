@@ -5,16 +5,27 @@
  * @returns {Array.<string>}
  */
 export default function search(docs, needle) {
-  const needleTerm = needle.toLowerCase().match(/\w+/g) ?? []
-  if (needleTerm.length == 0) {
+  const needleTerms = tokens2terms(needle)
+  if (needleTerms.length == 0) {
     return []
   }
 
   return docs
-    .filter((doc) => {
-      /** @type {string[]} */
-      const textTerm = doc.text.toLowerCase().match(/\w+/g) ?? []
-      return needleTerm.some(term => textTerm.includes(term))
-    })
+    .map(doc => ({ ...doc, term: tokens2terms(doc.text) }))
+    .map(doc => ({
+      ...doc,
+      weight: needleTerms.reduce((total, needle) => total + doc.term.filter(term => term == needle).length, 0),
+    }))
+    .sort((a, b) => b.weight - a.weight)
+    .filter(doc => doc.weight > 0)
     .map(doc => doc.id)
+}
+
+/**
+ * @param {string} token
+ *
+ * @returns {string[]}
+ */
+function tokens2terms(token) {
+  return token.toLowerCase().match(/\w+/g) ?? []
 }
