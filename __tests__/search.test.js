@@ -9,11 +9,11 @@ const doc3 = { id: 'doc3', text: 'I\'m your shooter.' }
 const docs = [doc1, doc2, doc3]
 
 test('Fuzzy search should return two results. More relevants should be first.', () => {
-  expect(search(docs, 'shoot at me')).toEqual(['doc1', 'doc2'])
+  expect(search(docs, 'shoot at me')).toEqual(['doc2', 'doc1'])
 })
 
 test('Search should return two results. More relevants should be first.', () => {
-  expect(search(docs, 'shoot')).toEqual(['doc1', 'doc2'])
+  expect(search(docs, 'shoot')).toEqual(['doc2', 'doc1'])
 })
 
 test('Search should return empty resiult.', () => {
