@@ -2,6 +2,7 @@
   "name": "hexlet-code",
   "version": "1.0.0",
   "description": "[![Actions Status](https://github.com/1g0rbm/algorithms-project-69/actions/workflows/hexlet-check.yml/badge.svg)](https://github.com/1g0rbm/algorithms-project-69/actions)",
+  "type": "module",
   "bin": {
     "nodejs-package": "bin/nodejs-package.js"
   },

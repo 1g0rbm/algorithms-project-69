@@ -16,3 +16,7 @@ test('Tokens to terms should return one lowercase term.', () => {
 test('Tokens to terms should return twi lowercase terms in array withou punctuation.', () => {
   expect(tokens2terms('Hello, world!')).toEqual(['hello', 'world'])
 })
+
+test('Tokens to terms should return word with apostrophe.', () => {
+  expect(tokens2terms('I can\'t do that.')).toEqual(['i', 'can\'t', 'do', 'that'])
+})

@@ -2,7 +2,7 @@
  * @param {Array.<{id:string, text: string}>} docs
  * @param {string} needle
  *
- * @returns {Array.<string>}
+ * @returns {string[]}
  */
 export default function search(docs, needle) {
   const needleTerms = tokens2terms(needle)
@@ -10,15 +10,43 @@ export default function search(docs, needle) {
     return []
   }
 
-  return docs
-    .map(doc => ({ ...doc, term: tokens2terms(doc.text) }))
-    .map(doc => ({
-      ...doc,
-      weight: needleTerms.reduce((total, needle) => total + doc.term.filter(term => term == needle).length, 0),
-    }))
-    .sort((a, b) => b.weight - a.weight)
-    .filter(doc => doc.weight > 0)
-    .map(doc => doc.id)
+  const idx = buildRevertedIndex(docs)
+
+  const docsPerTerm = needleTerms.map(term => idx[term] || [])
+  if (docsPerTerm.length == 0) {
+    return []
+  }
+
+  const res = new Set(docsPerTerm[0])
+  docsPerTerm.slice(1).flat().forEach(doc => {
+    if (!res.has(doc)) {
+      res.add(doc)
+    }
+  })
+
+  return Array.from(res)
+}
+
+/**
+ * @param {Array.<{id:string, text: string}>} docs
+ * 
+ * @returns {Object.<string, Array.<string>>}
+ */
+export function buildRevertedIndex(docs) {
+  return docs.reduce((acc, doc) => {
+    const terms = tokens2terms(doc.text)
+    terms.forEach(term => {
+      if (!acc[term]) {
+        acc[term] = []
+      }
+
+      if (!acc[term].includes(doc.id)) {
+        acc[term].push(doc.id)
+      }
+    })
+
+    return acc
+  }, {})
 }
 
 /**
@@ -27,5 +55,5 @@ export default function search(docs, needle) {
  * @returns {string[]}
  */
 export function tokens2terms(token) {
-  return token.toLowerCase().match(/\w+/g) ?? []
+  return token.toLowerCase().match(/[a-z']+/g) ?? []
 }
